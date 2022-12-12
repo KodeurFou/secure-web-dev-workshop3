@@ -4,6 +4,11 @@
 const router = require('express').Router()
 const locationsService = require('./locations.service')
 
+
+router.use("/location", passport.authenticate('jwt', {
+	session:false
+}));
+
 router.get('/locations', async (req, res) => {
 	return res.status(200).send({locations: await locationsService.findAll()})
 })
@@ -24,6 +29,10 @@ router.post('/locations/', async (req, res) => {
 router.patch('/locations/', async (req, res) => {
 	console.log(req.body)
 	return res.status(200).send({location: await locationsService.Patch(req.body)})
+})
+
+router.post('/locations', async (req,res) => {
+
 })
 
 

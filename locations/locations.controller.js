@@ -4,17 +4,23 @@
 const router = require('express').Router()
 const locationsService = require('./locations.service')
 
+const passport = require("passport");
 
-router.use("/location", passport.authenticate('jwt', {
+require('../passport_Strategies/local.strategy');
+require('../passport_Strategies/jwt.strategy');
+
+
+router.use('/locations', passport.authenticate('jwt', {
 	session:false
 }));
 
 router.get('/locations', async (req, res) => {
+	console.log('test')
 	return res.status(200).send({locations: await locationsService.findAll()})
 })
 
 router.get('/locations/:id', async (req, res) => {
-	return res.status(200).send({location: await locationsService.findOne(req.params.id)})
+	return res.status(200).send({location: await locationsService.FindOne(req.params.id)})
 })
 
 router.delete('/locations/:id', async (req, res) => {

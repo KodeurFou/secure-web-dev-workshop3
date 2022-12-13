@@ -10,6 +10,7 @@ const port = 3000
 
 app.use(bodyParser.json())
 app.use(userController)
+app.use(locationController)
 
 app.listen(port, async() => {
 	await mongoose.connect(process.env.MONGO_URI)

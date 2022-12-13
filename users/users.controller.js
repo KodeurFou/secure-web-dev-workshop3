@@ -4,13 +4,16 @@
 const router = require('express').Router()
 const userService = require('./users.service')
 const passport = require("passport");
+const authorization = require("../authorization/authorization_middleware")
 
 require('../passport_Strategies/local.strategy');
 require('../passport_Strategies/jwt.strategy');
 
 
 
-
+router.get('/users', async (req, res) => {
+	return res.status(200).send(await userService.findAll())
+})
 
 
 router.post('/users/register', async (req, res) => {
@@ -59,6 +62,7 @@ router.get('/users/me',
 	passport.authenticate('jwt', {
 	session:false
 	}),
+	authorization.roleMiddleware(['admin']),
 	async (req, res) => {
 	return res.status(200).send(await userService.findUser(req.user._id))
 })

@@ -7,7 +7,7 @@ function findAll () {
 
 }
 
-function findOne (id){
+function FindOne (id){
 	return Location.findById(id)
 }
 
@@ -28,7 +28,7 @@ async function Patch(body){
 }
 
 module.exports.findAll = findAll
-module.exports.findOne = findOne
+module.exports.FindOne = FindOne
 module.exports.eraseOne = eraseOne
 module.exports.Create = Create
 module.exports.Patch = Patch

@@ -29,6 +29,7 @@ async function TestMDP (username, password)
 	let res = false
 
 	const test = await Users.findOne({username:username})
+	console.log(test)
 	if (test) {
 
 		const test2 = await bcrypt.compare(password, test.password)
@@ -47,8 +48,7 @@ async function generateJWT(username) {
 
 
 function findAll () {
-	return Location.find({}).limit(10).lean()
-
+	return Users.find({}).limit(10).lean()
 }
 
 
@@ -73,6 +73,9 @@ async function Patch(id, body){
 
 	return Users.findOne({username:body.username})
 }
+
+
+
 
 module.exports.findAll = findAll
 module.exports.findUser = findUser
